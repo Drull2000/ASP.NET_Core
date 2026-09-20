@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Інформація про мене";
+    var userInfoJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.UserInfo);
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <title>React - Інформація про мене</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; padding: 20px; }
+        .card-container { 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            max-width: 500px; 
+            margin: 2rem auto; 
+        }
+        .info-item {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="react-root"></div>
+
+    <script type="text/babel">
+        const userInfo = @Html.Raw(userInfoJson);
+
+        function UserInfo({ data }) {
+            return (
+                <section className="card-container">
+                    <h2>👤 Особиста інформація</h2>
+                    <div className="info-item">
+                        <span className="label">ПІБ:</span> {data.FullName}
+                    </div>
+                    <div className="info-item">
+                        <span className="label">Контактний телефон:</span> {data.Phone}
+                    </div>
+                    <div className="info-item">
+                        <span className="label">Електронна адреса:</span> {data.Email}
+                    </div>
+                    <div className="info-item">
+                        <span className="label">Спеціальність:</span> {data.Speciality}
+                    </div>
+                    <div className="info-item">
+                        <span className="label">Група:</span> {data.Group}
+                    </div>
+                </section>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <UserInfo data={userInfo} />
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('react-root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -3,5 +3,7 @@
   <Folder Name="/Indep/">
     <Project Path="Indep_17_09_26/Indep_17_09_26.csproj" />
   </Folder>
-  <Folder Name="/Practise/" />
+  <Folder Name="/Practise/">
+    <Project Path="Practise_17_09_26/Practise_17_09_26.csproj" Id="d7380d52-14d7-4798-9166-4755adb7004a" />
+  </Folder>
 </Solution>

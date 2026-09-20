@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Про мене";
+    var userInfoJson = System.Text.Json.JsonSerializer.Serialize(ViewBag.UserInfo);
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <title>React — Інформація про мене</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@@babel/standalone/babel.min.js"></script>
+
+    <style>
+        .profile-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 480px;
+            margin: 30px auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .profile-card h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            font-size: 15px;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+        }
+        .info-value {
+            color: #212529;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="react-app-root"></div>
+
+    <script type="text/babel">
+        const profileData = @Html.Raw(userInfoJson);
+
+        function UserProfile({ info }) {
+            return (
+                <div className="profile-card">
+                    <h2>👤 Інформація про студента</h2>
+                    <div className="info-row">
+                        <span className="info-label">ПІБ:</span>
+                        <span className="info-value">{info.FullName}</span>
+                    </div>
+                    <div className="info-row">
+                        <span className="info-label">Спеціальність:</span>
+                        <span className="info-value">{info.Speciality}</span>
+                    </div>
+                    <div className="info-row">
+                        <span className="info-label">Група:</span>
+                        <span className="info-value">{info.Group}</span>
+                    </div>
+                    <div className="info-row">
+                        <span className="info-label">Телефон:</span>
+                        <span className="info-value">{info.Phone}</span>
+                    </div>
+                    <div className="info-row">
+                        <span className="info-label">Email:</span>
+                        <span className="info-value">{info.Email}</span>
+                    </div>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <main>
+                    <UserProfile info={profileData} />
+                </main>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('react-app-root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
